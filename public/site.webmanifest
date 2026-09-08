@@ -1,0 +1,17 @@
+{
+  "name": "Hustlers Ventures",
+  "short_name": "Hustlers",
+  "description": "Co-own high-yield real-world assets across Transportation, Hospitality, and F&B.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

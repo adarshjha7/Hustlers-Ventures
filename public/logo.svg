@@ -1,0 +1,16 @@
+<svg viewBox="0 0 100 100" overflow="visible" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Left bar -->
+  <rect x="5" y="42" width="27" height="54" rx="8" fill="#05CE78"/>
+
+  <!-- Middle bar -->
+  <rect x="37" y="24" width="27" height="72" rx="8" fill="#05CE78"/>
+
+  <!-- Right bar -->
+  <rect x="69" y="6" width="27" height="90" rx="8" fill="#05CE78"/>
+
+  <!-- White swoosh 1 -->
+  <path d="M-5 74 C 28 61, 63 41, 112 20" stroke="white" stroke-width="11" stroke-linecap="round"/>
+
+  <!-- White swoosh 2 -->
+  <path d="M-5 90 C 28 77, 63 57, 112 36" stroke="white" stroke-width="11" stroke-linecap="round"/>
+</svg>

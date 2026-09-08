@@ -1,0 +1,322 @@
+﻿@import "tailwindcss";
+
+/* â”€â”€â”€ BRAND TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+:root {
+  --brand-green:        #05CE78;
+  --brand-green-hover:  #04b86c;
+  --brand-dark:         #0B1120;
+  --brand-dark-mid:     #131B2C;
+  --brand-dark-border:  rgba(255,255,255,0.07);
+
+  --shadow-ambient:     0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card:        0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-panel:       0 8px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-modal:       0 24px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.10);
+
+  --glow-green-sm:      0 0 0 1px rgba(5,206,120,0.25), 0 0 20px rgba(5,206,120,0.30), 0 0 40px rgba(5,206,120,0.12);
+  --glow-green-md:      0 0 0 1px rgba(5,206,120,0.30), 0 0 40px rgba(5,206,120,0.45), 0 0 80px rgba(5,206,120,0.20);
+  --glow-green-lg:      0 0 0 1px rgba(5,206,120,0.40), 0 0 60px rgba(5,206,120,0.60), 0 0 120px rgba(5,206,120,0.30);
+}
+
+/* â”€â”€â”€ BASE RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: rgba(5, 206, 120, 0.25);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-green);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* â”€â”€â”€ PREMIUM SCROLLBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.22);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+}
+
+/* â”€â”€â”€ NUMBER INPUTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* â”€â”€â”€ KEYFRAME LIBRARY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: var(--glow-green-sm); }
+  50%       { box-shadow: var(--glow-green-md); }
+}
+
+@keyframes dot-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* â”€â”€â”€ ANIMATION UTILITIES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.group:hover .group-hover\:paused {
+  animation-play-state: paused;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll,
+  .animate-float,
+  .animate-fade-in-up,
+  .animate-pulse-glow {
+    animation: none;
+  }
+}
+
+/* â”€â”€â”€ SKELETON SHIMMER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 37%, #f0f0f0 63%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-dark {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.10) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* â”€â”€â”€ GLASS MORPHISM SURFACE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.glass {
+  @apply backdrop-blur-2xl;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+.glass-dark {
+  @apply backdrop-blur-2xl;
+  background: rgba(11,17,32,0.80);
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: var(--shadow-modal);
+}
+
+/* â”€â”€â”€ COMPONENT LAYER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+@layer components {
+
+  /* Navigation links (marketing header) */
+  .premium-link {
+    @apply relative text-gray-700 font-medium text-base transition-colors duration-200;
+  }
+  .premium-link:hover {
+    @apply text-[#05CE78];
+  }
+  .premium-link::after {
+    content: "";
+    @apply absolute left-0 bottom-0 w-0 h-[2px] bg-[#05CE78] transition-all duration-300;
+  }
+  .premium-link:hover::after {
+    @apply w-full;
+  }
+
+  /* Auth page outline/filled buttons */
+  .auth-outline {
+    @apply px-5 py-2.5 border border-[#05CE78] text-[#05CE78] rounded-lg
+           hover:bg-[#05CE78] hover:text-white transition-all duration-200 font-medium text-sm;
+  }
+  .auth-filled {
+    @apply px-5 py-2.5 bg-[#05CE78] text-white rounded-lg hover:bg-[#04B868]
+           transition-all duration-200 font-medium text-sm;
+  }
+
+  /* Mobile menu link */
+  .mobile-link {
+    @apply text-gray-700 text-base font-medium;
+  }
+
+  /* Standard CTA buttons */
+  .btn-primary {
+    @apply px-6 py-3 bg-[#05CE78] text-white rounded-xl hover:bg-[#04B868]
+           transition-all duration-200 font-bold text-sm;
+    box-shadow: var(--glow-green-sm);
+  }
+  .btn-primary:hover {
+    box-shadow: var(--glow-green-md);
+  }
+  .btn-secondary {
+    @apply px-6 py-3 border border-[#05CE78] text-[#05CE78] rounded-xl
+           hover:bg-[#05CE78] hover:text-white transition-all duration-200 font-bold text-sm;
+  }
+
+  /* Marketing public CTA â€” Apple-style ambient glow */
+  .btn-cta {
+    @apply inline-flex items-center justify-center gap-2 bg-[#05CE78] text-white
+           font-bold rounded-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95;
+    box-shadow: var(--glow-green-md);
+  }
+  .btn-cta:hover {
+    @apply bg-[#04b86c];
+    box-shadow: var(--glow-green-lg);
+  }
+
+  /* Section header labels */
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full
+           bg-[#05CE78]/10 border border-[#05CE78]/20
+           text-[#05CE78] text-xs font-bold uppercase tracking-wider;
+  }
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900;
+  }
+  .section-subtitle {
+    @apply text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed;
+  }
+
+  /* White card surface */
+  .card {
+    @apply bg-white rounded-2xl border border-gray-100;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-panel);
+  }
+
+  /* Dark card surface */
+  .card-dark {
+    @apply bg-[#131B2C] rounded-2xl border border-white/[0.07];
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+
+  /* Stat label convention */
+  .stat-label {
+    @apply text-xs font-bold uppercase tracking-widest text-gray-400;
+  }
+  .stat-label-dark {
+    @apply text-xs font-bold uppercase tracking-widest text-white/40;
+  }
+  .stat-value {
+    @apply text-xl font-black text-gray-900 leading-none;
+  }
+  .stat-value-dark {
+    @apply text-xl font-black text-white leading-none;
+  }
+
+  /* Badge variants */
+  .badge-green {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full
+           bg-[#05CE78]/12 border border-[#05CE78]/25 text-[#05CE78]
+           text-xs font-bold;
+  }
+  .badge-blue {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full
+           bg-blue-500/12 border border-blue-500/25 text-blue-400
+           text-xs font-bold;
+  }
+}
+
+/* â”€â”€â”€ ONYA DIAMONDS ROI SIMULATOR SLIDER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+input[type='range'].onya-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+}
+input[type='range'].onya-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 22px;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  cursor: pointer;
+  border: none;
+}
+input[type='range'].onya-slider::-moz-range-thumb {
+  width: 32px;
+  height: 22px;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  cursor: pointer;
+  border: none;
+}

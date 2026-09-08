@@ -1,0 +1,51 @@
+diff --git a/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js b/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js
+index fae4753..8164f11 100644
+--- a/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js
++++ b/node_modules/@ffmpeg/ffmpeg/dist/esm/classes.js
+@@ -101,15 +101,14 @@ export class FFmpeg {
+      */
+     load = ({ classWorkerURL, ...config } = {}, { signal } = {}) => {
+         if (!this.#worker) {
+-            this.#worker = classWorkerURL ?
+-                new Worker(new URL(classWorkerURL, import.meta.url), {
+-                    type: "module",
+-                }) :
+-                // We need to duplicated the code here to enable webpack
+-                // to bundle worekr.js here.
+-                new Worker(new URL("./worker.js", import.meta.url), {
+-                    type: "module",
+-                });
++            // patch-package: dropped the classWorkerURL branch — its
++            // `new Worker(new URL(classWorkerURL, import.meta.url))` uses a
++            // non-literal specifier that Turbopack can't statically analyze
++            // ("Cannot find module as expression is too dynamic"), and we
++            // never pass classWorkerURL from our code anyway.
++            this.#worker = new Worker(new URL("./worker.js", import.meta.url), {
++                type: "module",
++            });
+             this.#registerHandlers();
+         }
+         return this.#send({
+diff --git a/node_modules/@ffmpeg/ffmpeg/dist/esm/worker.js b/node_modules/@ffmpeg/ffmpeg/dist/esm/worker.js
+index cca2a61..0dfc6bf 100644
+--- a/node_modules/@ffmpeg/ffmpeg/dist/esm/worker.js
++++ b/node_modules/@ffmpeg/ffmpeg/dist/esm/worker.js
+@@ -16,8 +16,16 @@ const load = async ({ coreURL: _coreURL, wasmURL: _wasmURL, workerURL: _workerUR
+         if (!_coreURL || _coreURL === CORE_URL)
+             _coreURL = CORE_URL.replace('/umd/', '/esm/');
+         // when web worker type is `module`.
+-        self.createFFmpegCore = (await import(
+-        /* @vite-ignore */ _coreURL)).default;
++        // patch-package: `import(_coreURL)` is a non-literal specifier —
++        // Turbopack statically analyzes every import() it can parse and
++        // errors ("Cannot find module as expression is too dynamic") on
++        // this one instead of leaving it as a genuine runtime-dynamic
++        // import, which is what this line actually needs (the URL is a
++        // blob: URL constructed at runtime, unknowable at bundle time).
++        // Routing it through `new Function` hides the import() call from
++        // the bundler's static analysis entirely, so it falls through to
++        // a real native dynamic import at runtime instead.
++        self.createFFmpegCore = (await (new Function("u", "return import(u)"))(_coreURL)).default;
+         if (!self.createFFmpegCore) {
+             throw ERROR_IMPORT_FAILURE;
+         }
